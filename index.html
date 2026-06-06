@@ -1,0 +1,246 @@
+# Biology-survival-game
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Gene Legacy</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background:#f4f4f4;
+    text-align:center;
+    padding:30px;
+}
+
+.container{
+    background:white;
+    max-width:700px;
+    margin:auto;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 0 10px rgba(0,0,0,0.2);
+}
+
+button{
+    margin:5px;
+    padding:10px 20px;
+    font-size:16px;
+    cursor:pointer;
+}
+
+#log{
+    margin-top:20px;
+    text-align:left;
+    height:300px;
+    overflow-y:auto;
+    border:1px solid #ccc;
+    padding:10px;
+    background:#fafafa;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🧬 Gene Legacy</h1>
+<p>5세대까지 생존하라</p>
+
+<h3 id="generation">1세대</h3>
+
+<p id="stats">
+건강:50 | 지능:50 | 면역력:50
+</p>
+
+<button onclick="editGene('health')">
+건강 강화
+</button>
+
+<button onclick="editGene('intelligence')">
+지능 강화
+</button>
+
+<button onclick="editGene('immunity')">
+면역력 강화
+</button>
+
+<button onclick="editGene('none')">
+편집 안 함
+</button>
+
+<div id="log"></div>
+
+</div>
+
+<script>
+
+let generation = 1;
+
+let health = 50;
+let intelligence = 50;
+let immunity = 50;
+
+const minorMutations = [
+"색각 이상",
+"경미한 시력 저하",
+"알레르기",
+"손가락 형태 변화"
+];
+
+const moderateMutations = [
+{
+name:"청각 손실",
+effect:()=>health -= 10
+},
+{
+name:"성장 장애",
+effect:()=>health -= 15
+},
+{
+name:"선천성 심장 이상",
+effect:()=>immunity -= 15
+}
+];
+
+const fatalMutations = [
+"치명적 면역 결핍",
+"장기 형성 실패",
+"심각한 신경계 이상"
+];
+
+function log(text){
+document.getElementById("log").innerHTML += text + "<br>";
+document.getElementById("log").scrollTop =
+document.getElementById("log").scrollHeight;
+}
+
+function updateStats(){
+
+document.getElementById("generation").innerText =
+generation + "세대";
+
+document.getElementById("stats").innerText =
+`건강:${health} | 지능:${intelligence} | 면역력:${immunity}`;
+}
+
+function gameOver(reason){
+
+log("<hr>");
+log("💀 게임 오버");
+log(reason);
+
+document.querySelectorAll("button")
+.forEach(btn => btn.disabled = true);
+}
+
+function victory(){
+
+log("<hr>");
+log("🎉 축하합니다!");
+log("5세대 생존 성공!");
+
+document.querySelectorAll("button")
+.forEach(btn => btn.disabled = true);
+}
+
+function editGene(type){
+
+let mutationRisk = 5;
+
+if(type === "health"){
+health += 15;
+mutationRisk = 20;
+log("건강 강화 성공 (+15)");
+}
+
+if(type === "intelligence"){
+intelligence += 15;
+mutationRisk = 20;
+log("지능 강화 성공 (+15)");
+}
+
+if(type === "immunity"){
+immunity += 15;
+mutationRisk = 20;
+log("면역력 강화 성공 (+15)");
+}
+
+if(type === "none"){
+log("유전자 편집을 하지 않았다.");
+}
+
+let roll = Math.floor(Math.random()*100)+1;
+
+if(roll <= mutationRisk){
+
+let severity = Math.floor(Math.random()*100)+1;
+
+if(severity <= 60){
+
+let mutation =
+minorMutations[
+Math.floor(Math.random()*minorMutations.length)
+];
+
+log("🟡 경미한 돌연변이 발생");
+log("결과 : " + mutation);
+}
+
+else if(severity <= 90){
+
+let mutation =
+moderateMutations[
+Math.floor(Math.random()*moderateMutations.length)
+];
+
+mutation.effect();
+
+log("🟠 중간 수준 돌연변이 발생");
+log("결과 : " + mutation.name);
+}
+
+else{
+
+let mutation =
+fatalMutations[
+Math.floor(Math.random()*fatalMutations.length)
+];
+
+gameOver("치명적 돌연변이 발생 : " + mutation);
+return;
+}
+}
+
+log("질병 이벤트 발생");
+
+let disease =
+Math.floor(Math.random()*100)+1;
+
+if(disease > immunity){
+
+gameOver("감염병을 이겨내지 못했다.");
+return;
+}
+
+log("✅ 생존 성공");
+
+generation++;
+
+updateStats();
+
+if(generation > 5){
+victory();
+}
+}
+
+updateStats();
+
+log("게임 시작");
+log("5세대까지 생존하세요.");
+
+</script>
+
+</body>
+</html>
