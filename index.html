@@ -425,13 +425,17 @@ risk = 5;
 
 let mutationChance =
 risk + (100 - stability)/2;
-
+if(generation <= 3){
+mutationChance *= 0.6;
+}
 let roll = Math.random()*100;
 
 if(roll < mutationChance){
 
 let severity = Math.random()*100;
-
+if(generation <= 3){
+severity = Math.min(severity,89);
+}
 if(severity < 60){
 
 let mutation =
