@@ -248,7 +248,12 @@ const fatalMutations = [
 "신경계 발달 이상",
 "장기 형성 장애"
 ];
+function startGame(){
 
+document.getElementById("introScreen")
+.style.display = "none";
+
+}
 function log(text){
 document.getElementById("log").innerHTML += text + "<br><br>";
 document.getElementById("log").scrollTop =
