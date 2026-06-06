@@ -100,6 +100,9 @@ button:hover{
                 background:#4CAF50;
                 border-radius:10px;">
     </div>
+</div>
+
+<h3>가계도</h3>
 <h3>가계도</h3>
 
 <div id="familyTree"
@@ -237,13 +240,16 @@ document.getElementById("familyTree").innerHTML = tree;
 
 }
 
-showPopup("💀 GAME OVER", reason);{
+function gameOver(reason){
+
+showPopup("💀 GAME OVER", reason);
 
 log("💀 GAME OVER");
 log(reason);
 
 document.querySelectorAll("button")
 .forEach(btn => btn.disabled = true);
+
 }
 
 function victory(){
