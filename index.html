@@ -498,7 +498,7 @@ risk = 5;
 let mutationChance =
 risk + (100 - stability)/2;
 if(generation <= 3){
-mutationChance *= 0.1;
+mutationChance *= 0.99;
 }
 let roll = Math.random()*100;
 
