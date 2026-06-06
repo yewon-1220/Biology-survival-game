@@ -8,13 +8,12 @@
 <style>
 body{
     font-family: Arial, sans-serif;
-    background:
-    linear-gradient(
-    135deg,
-    #081722,
-    #12324a,
-    #0c4c5e
-    );
+
+    background-image:url("IMG_5090.jpeg");
+    background-size:cover;
+    background-position:center;
+    background-attachment:fixed;
+
     margin:0;
     padding:20px;
 }
@@ -22,7 +21,7 @@ body{
 .container{
     max-width:800px;
     margin:auto;
-    background:rgba(255,255,255,0.95);
+    background:rgba(255,255,255,0.92);
     padding:25px;
     border-radius:15px;
     box-shadow:0 0 15px rgba(0,0,0,0.15);
@@ -173,39 +172,53 @@ text-align:center;
 margin-bottom:20px;">
 👶
 </div>
-<div class="lab">
-👼<br>
-🧬✂️
+<div id="currentPerson" class="lab">
+👶
 </div>
 
 <div class="stats">
 
-<div class="card">
-🧠<br>
-지능<br>
-<span id="intelligence">50</span>
-</div>
+  <div class="card">
+    🧠 지능<br>
+    <span id="intelligence">50</span>
+    <div class="bar"><div id="intBar" class="fill"></div></div>
+  </div>
 
-<div class="card">
-💪<br>
-신체<br>
-<span id="strength">50</span>
-</div>
+  <div class="card">
+    💪 신체<br>
+    <span id="strength">50</span>
+    <div class="bar"><div id="strBar" class="fill"></div></div>
+  </div>
 
-<div class="card">
-🦠<br>
-면역력<br>
-<span id="immunity">50</span>
-</div>
+  <div class="card">
+    🦠 면역력<br>
+    <span id="immunity">50</span>
+    <div class="bar"><div id="immBar" class="fill"></div></div>
+  </div>
 
-<div class="card">
-✨<br>
-외모<br>
-<span id="beauty">50</span>
-</div>
+  <div class="card">
+    ✨ 외모<br>
+    <span id="beauty">50</span>
+    <div class="bar"><div id="beaBar" class="fill"></div></div>
+  </div>
 
 </div>
+    .bar{
+  width:100%;
+  height:10px;
+  background:#ddd;
+  border-radius:10px;
+  margin-top:6px;
+  overflow:hidden;
+}
 
+.fill{
+  height:100%;
+  width:50%;
+  background:#4CAF50;
+  border-radius:10px;
+  transition:width 0.3s ease;
+}
 <div class="buttons">
 <button onclick="editGene('intelligence')">🧠 지능 향상</button>
 <button onclick="editGene('strength')">💪 신체 강화</button>
@@ -301,7 +314,8 @@ let stages = [
 "👩‍🦱",
 "👵"
 ];
-
+document.getElementById("currentPerson").innerHTML =
+stages[Math.min(generation-1,4)];
 let tree = "";
 
 for(let i=0;i<generation;i++){
