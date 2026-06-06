@@ -54,24 +54,34 @@ h1{
     text-align:center;
 }
 
-.buttons{
-    text-align:center;
-    margin-top:20px;
-}
-
 button{
     margin:5px;
-    padding:12px;
+    padding:12px 16px;
     border:none;
-    border-radius:10px;
+    border-radius:12px;
     cursor:pointer;
     font-size:15px;
+    color:black;
+
+    background:rgba(255,255,255,0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    border:1px solid rgba(255,255,255,0.25);
+
+    box-shadow:0 4px 10px rgba(0,0,0,0.2);
+
+    transition:all 0.2s ease;
 }
 
 button:hover{
-    opacity:0.85;
+    transform: translateY(-2px);
+    background:rgba(255,255,255,0.25);
 }
 
+button:active{
+    transform: translateY(0px);
+}
 .log{
     margin-top:20px;
     border:1px solid #ddd;
