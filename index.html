@@ -6,11 +6,6 @@
 <title>CRISPR: Sink or Swim</title>
 
 <style>
-    .glowText{
-    color: #f5f5f5;
-    text-shadow: 0 1px 3px rgba(0,0,0,0.6);
-    font-weight: 500;
-}
 body{
     font-family: Arial, sans-serif;
 
@@ -22,23 +17,14 @@ body{
     margin:0;
     padding:20px;
 }
-<div id="newsBox">
-📰 연구소 뉴스 대기중...
-</div>
+
 .container{
-  max-width:800px;
-  margin:auto;
-
-  background:rgba(55,55,55,0.65);
-  color:white;
-
-  padding:25px;
-  border-radius:15px;
-
-  backdrop-filter: blur(8px);
-  border:1px solid rgba(255,255,255,0.1);
-
-  box-shadow:0 0 15px rgba(0,0,0,0.3);
+    max-width:800px;
+    margin:auto;
+    background:rgba(255,255,255,0.92);
+    padding:25px;
+    border-radius:15px;
+    box-shadow:0 0 15px rgba(0,0,0,0.15);
 }
 
 h1{
@@ -61,28 +47,33 @@ h1{
     text-align:center;
 }
 
+.buttons{
+    text-align:center;
+    margin-top:20px;
+}
+
 button{
     margin:5px;
-    padding:12px 16px;
-
-    background:rgba(255,255,255,0.08);
-    border:1px solid rgba(255,255,255,0.15);
-
-    color:white;
-
-    border-radius:14px;
+    padding:12px;
+    border:none;
+    border-radius:10px;
     cursor:pointer;
-
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-
-    transition:0.25s ease;
+    font-size:15px;
 }
 
 button:hover{
-    background:rgba(255,255,255,0.18);
-    transform:translateY(-2px);
+    opacity:0.85;
 }
+
+.log{
+    margin-top:20px;
+    border:1px solid #ddd;
+    padding:15px;
+    height:280px;
+    overflow-y:auto;
+    background:#fafafa;
+}
+
 .lab{
     text-align:center;
     font-size:40px;
@@ -94,9 +85,6 @@ button:hover{
     padding:10px;
     border-radius:8px;
     margin-top:10px;
-}
-    .container{
-    color:black;
 }
     .bar{
   width:100%;
@@ -113,20 +101,6 @@ button:hover{
   background:#4CAF50;
   border-radius:10px;
   transition:width 0.3s ease;
-}
-button{
-  background:rgba(30,30,30,0.6);
-  color:white;
-  border:1px solid rgba(255,255,255,0.2);
-  backdrop-filter: blur(4px);
-  border-radius:10px;
-  cursor:pointer;
-  transition:0.2s;
-}
-
-button:hover{
-  background:rgba(60,60,60,0.8);
-  transform:scale(1.03);
 }
 </style>
 </head>
@@ -147,6 +121,7 @@ overflow:auto;
 z-index:9999;
 ">
 
+<h1>🧬 CRISPR: Sink or Swim</h1>
 
 <h2>2045년</h2>
 
@@ -187,9 +162,7 @@ CRISPR 유전자 가위 기술이 상용화되었다.
 </button>
 
 </div>
-<div id="newsBox" class="news">
-📰 연구소 뉴스 대기중...
-</div>
+
 <div class="container">
     
 <h1>Every genetic choice shapes the next gen</h1>
@@ -205,16 +178,7 @@ CRISPR 유전자 가위 기술이 상용화되었다.
                 border-radius:10px;">
     </div>
 </div>
-<h3>🧬 실험체 정보</h3>
 
-<div class="card">
-
-이름 : Generation X<br>
-상태 : 정상<br>
-DNA 안정성 :
-<span id="stability">100</span>%
-
-</div>
 <h3>가계도</h3>
 
 <div id="familyTree"
@@ -227,7 +191,7 @@ margin-bottom:20px;">
 <div id="currentPerson" class="lab">
 👶
 </div>
-<div id="subjectStatus"></div>
+
 <div class="stats">
 
   <div class="card">
@@ -255,8 +219,22 @@ margin-bottom:20px;">
   </div>
 
 </div>
-    
+    .bar{
+  width:100%;
+  height:10px;
+  background:#ddd;
+  border-radius:10px;
+  margin-top:6px;
+  overflow:hidden;
+}
 
+.fill{
+  height:100%;
+  width:50%;
+  background:#4CAF50;
+  border-radius:10px;
+  transition:width 0.3s ease;
+}
 <div class="buttons">
 <button onclick="editGene('intelligence')">🧠 지능 향상</button>
 <button onclick="editGene('strength')">💪 신체 강화</button>
@@ -316,8 +294,7 @@ document.getElementById("log").innerHTML += text + "<br><br>";
 document.getElementById("log").scrollTop =
 document.getElementById("log").scrollHeight;
 }
-document.getElementById("subjectStatus")
-.innerHTML = "돌연변이 발생";
+
 function updateUI(){
 
 document.getElementById("generation").innerText =
@@ -344,12 +321,6 @@ else{
 document.getElementById("dnaBar").style.background="#F44336";
 }
 
-document.getElementById("intBar").style.width = intelligence + "%";
-document.getElementById("strBar").style.width = strength + "%";
-document.getElementById("immBar").style.width = immunity + "%";
-document.getElementById("beaBar").style.width = beauty + "%";
-document.getElementById("newsBox")
-.innerText = news;
 let stages = [
 "👶",
 "👧",
@@ -377,7 +348,6 @@ tree += " ➜ ";
 
 document.getElementById("familyTree").innerHTML =
 tree;
-
 
 }
 
@@ -483,7 +453,7 @@ risk = 5;
 let mutationChance =
 risk + (100 - stability)/2;
 if(generation <= 3){
-mutationChance *= 0.99;
+mutationChance *= 0.6;
 }
 let roll = Math.random()*100;
 
@@ -560,6 +530,568 @@ victory();
     }
 }
 
+updateUI();
+log("👨‍🔬 연구소에 오신 것을 환영합니다.");
+log("당신은 부모로서 태어날 아이의 유전자를 편집할 수 있습니다.");
+log("5세대까지 가문을 생존시키세요.");
+
+</script>
+<div id="popup" style="
+display:none;
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+background:white;
+padding:25px;
+border-radius:15px;
+box-shadow:0 0 20px rgba(0,0,0,0.4);
+z-index:999;
+max-width:400px;
+text-align:center;
+">
+
+<h2 id="popupTitle"></h2>
+
+<p id="popupText"></p>
+
+<button onclick="closePopup()">확인</button>
+
+</div>
+</body>
+</html>
+
+이게지금 내코든데 자바를 어디에 넣으란거야<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRISPR: Sink or Swim</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+
+    background-image:url("IMG_5090.jpeg");
+    background-size:cover;
+    background-position:center;
+    background-attachment:fixed;
+
+    margin:0;
+    padding:20px;
+}
+
+.container{
+    max-width:800px;
+    margin:auto;
+    background:rgba(255,255,255,0.92);
+    padding:25px;
+    border-radius:15px;
+    box-shadow:0 0 15px rgba(0,0,0,0.15);
+}
+
+h1{
+    text-align:center;
+}
+
+.stats{
+    display:flex;
+    justify-content:space-around;
+    flex-wrap:wrap;
+    margin:15px 0;
+}
+
+.card{
+    background:#f4f4f4;
+    padding:10px;
+    border-radius:10px;
+    margin:5px;
+    min-width:120px;
+    text-align:center;
+}
+
+.buttons{
+    text-align:center;
+    margin-top:20px;
+}
+
+button{
+    margin:5px;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:15px;
+}
+
+button:hover{
+    opacity:0.85;
+}
+
+.log{
+    margin-top:20px;
+    border:1px solid #ddd;
+    padding:15px;
+    height:280px;
+    overflow-y:auto;
+    background:#fafafa;
+}
+
+.lab{
+    text-align:center;
+    font-size:40px;
+    margin:20px;
+}
+
+.news{
+    background:#fff3cd;
+    padding:10px;
+    border-radius:8px;
+    margin-top:10px;
+}
+    .bar{
+  width:100%;
+  height:10px;
+  background:#ddd;
+  border-radius:10px;
+  margin-top:6px;
+  overflow:hidden;
+}
+
+.fill{
+  height:100%;
+  width:50%;
+  background:#4CAF50;
+  border-radius:10px;
+  transition:width 0.3s ease;
+}
+</style>
+</head>
+
+<body>
+
+<div id="introScreen"
+style="
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:#081722;
+color:white;
+padding:40px;
+overflow:auto;
+z-index:9999;
+">
+
+<h1>🧬 CRISPR: Sink or Swim</h1>
+
+<h2>2045년</h2>
+
+<p>
+CRISPR 유전자 가위 기술이 상용화되었다.
+</p>
+
+<p>
+당신은 부모로서 태어날 아이의 유전자를 편집할지 결정해야 한다.
+</p>
+
+<p>
+모든 선택은 다음 세대에 영향을 미친다.
+</p>
+
+<p>
+5세대까지 가문을 생존시키면 성공이다.
+</p>
+
+<hr>
+
+<h2>CRISPR란?</h2>
+
+<p>
+🧬 DNA의 특정 부분을 잘라 수정할 수 있는 유전자 편집 기술이다.
+</p>
+
+<p>
+✂️ 유전 질환 치료에 활용될 가능성이 있다.
+</p>
+
+<p>
+⚠️ 하지만 예상치 못한 돌연변이가 발생할 수도 있다.
+</p>
+
+<button onclick="startGame()">
+🚀 연구 시작
+</button>
+
+</div>
+
+<div class="container">
+    
+<h1>Every genetic choice shapes the next gen</h1>
+
+<h3 id="generation">1세대 / 5세대</h3>
+
+<p><b>유전자 안정성:</b> <span id="stability">100</span>%</p>
+<div style="width:100%;background:#ddd;border-radius:10px;">
+    <div id="dnaBar"
+         style="width:100%;
+                height:25px;
+                background:#4CAF50;
+                border-radius:10px;">
+    </div>
+</div>
+
+<h3>가계도</h3>
+
+<div id="familyTree"
+style="
+font-size:30px;
+text-align:center;
+margin-bottom:20px;">
+👶
+</div>
+<div id="currentPerson" class="lab">
+👶
+</div>
+
+<div class="stats">
+
+  <div class="card">
+    🧠 지능<br>
+    <span id="intelligence">50</span>
+    <div class="bar"><div id="intBar" class="fill"></div></div>
+  </div>
+
+  <div class="card">
+    💪 신체<br>
+    <span id="strength">50</span>
+    <div class="bar"><div id="strBar" class="fill"></div></div>
+  </div>
+
+  <div class="card">
+    🦠 면역력<br>
+    <span id="immunity">50</span>
+    <div class="bar"><div id="immBar" class="fill"></div></div>
+  </div>
+
+  <div class="card">
+    ✨ 외모<br>
+    <span id="beauty">50</span>
+    <div class="bar"><div id="beaBar" class="fill"></div></div>
+  </div>
+
+</div>
+    .bar{
+  width:100%;
+  height:10px;
+  background:#ddd;
+  border-radius:10px;
+  margin-top:6px;
+  overflow:hidden;
+}
+
+.fill{
+  height:100%;
+  width:50%;
+  background:#4CAF50;
+  border-radius:10px;
+  transition:width 0.3s ease;
+}
+<div class="buttons">
+<button onclick="editGene('intelligence')">🧠 지능 향상</button>
+<button onclick="editGene('strength')">💪 신체 강화</button>
+<button onclick="editGene('immunity')">🦠 면역력 강화</button>
+<button onclick="editGene('beauty')">✨ 외모 개선</button>
+<button onclick="editGene('none')">😊 편집 안 함</button>
+</div>
+
+<div class="log" id="log"></div>
+
+</div>
+
+<script>
+
+let generation = 1;
+
+let intelligence = 50;
+let strength = 50;
+let immunity = 50;
+let beauty = 50;
+
+let stability = 100;
+let mutationHistory = [];
+const newsEvents = [
+"📰 유전자 편집 아동들의 학업 성취도가 증가했다.",
+"📰 디자이너 베이비 논란이 확산되고 있다.",
+"📰 부유층 중심의 유전자 편집 서비스가 확대되었다.",
+"📰 예상치 못한 유전 질환 사례가 보고되었다.",
+"📰 인간 능력 향상 기술에 대한 찬반 논쟁이 이어지고 있다."
+];
+
+const minorMutations = [
+"근시",
+"알레르기",
+"색각 이상"
+];
+
+const moderateMutations = [
+"청각 이상",
+"성장 장애",
+"선천성 심장 결함"
+];
+
+const fatalMutations = [
+"중증 면역 결핍",
+"신경계 발달 이상",
+"장기 형성 장애"
+];
+function startGame(){
+
+document.getElementById("introScreen")
+.style.display = "none";
+
+}
+function log(text){
+document.getElementById("log").innerHTML += text + "<br><br>";
+document.getElementById("log").scrollTop =
+document.getElementById("log").scrollHeight;
+}
+
+function updateUI(){
+
+document.getElementById("generation").innerText =
+generation + "세대 / 5세대";
+
+document.getElementById("intelligence").innerText = intelligence;
+document.getElementById("strength").innerText = strength;
+document.getElementById("immunity").innerText = immunity;
+document.getElementById("beauty").innerText = beauty;
+
+document.getElementById("stability").innerText =
+Math.max(stability,0);
+
+document.getElementById("dnaBar").style.width =
+Math.max(stability,0) + "%";
+
+if(stability > 70){
+document.getElementById("dnaBar").style.background="#4CAF50";
+}
+else if(stability > 40){
+document.getElementById("dnaBar").style.background="#FFC107";
+}
+else{
+document.getElementById("dnaBar").style.background="#F44336";
+}
+
+let stages = [
+"👶",
+"👧",
+"👩",
+"👩‍🦱",
+"👵"
+];
+document.getElementById("currentPerson").innerHTML =
+stages[Math.min(generation-1,4)];
+let tree = "";
+
+for(let i=0;i<generation;i++){
+
+tree += stages[Math.min(i,4)];
+
+if(mutationHistory[i+1]){
+tree += "🚨";
+}
+
+if(i < generation-1){
+tree += " ➜ ";
+}
+
+}
+
+document.getElementById("familyTree").innerHTML =
+tree;
+
+}
+
+function gameOver(reason){
+
+showPopup("💀 GAME OVER", reason);
+
+log("💀 GAME OVER");
+log(reason);
+
+document.querySelectorAll(".buttons button")
+.forEach(btn => btn.disabled = true);
+
+}
+function showPopup(title,text){
+
+document.getElementById("popupTitle").innerText =
+title;
+
+document.getElementById("popupText").innerText =
+text;
+
+document.getElementById("popup").style.display =
+"block";
+}
+
+function closePopup(){
+
+document.getElementById("popup").style.display =
+"none";
+}
+function victory(){
+
+if(stability >= 70){
+
+showPopup(
+"🌟 좋은 엔딩",
+"5세대 생존에 성공했습니다.\n\n유전자 편집은 성공적이었으며 심각한 부작용은 발견되지 않았습니다."
+);
+
+}
+
+else if(stability >= 40){
+
+showPopup(
+"⚖️ 보통 엔딩",
+"5세대 생존에는 성공했습니다.\n\n일부 유전적 문제가 보고되었지만 가문은 유지되었습니다."
+);
+
+}
+
+else{
+
+showPopup(
+"⚠️ 나쁜 엔딩",
+"5세대 생존은 했지만 수많은 돌연변이가 누적되었습니다.\n\n과도한 유전자 편집의 위험성이 드러났습니다."
+);
+
+}
+
+document.querySelectorAll(".buttons button")
+.forEach(btn => btn.disabled = true);
+}
+function editGene(type){
+
+log("🧬 유전자 편집 진행 중...");
+
+let risk = 0;
+
+if(type==="intelligence"){
+intelligence += 15;
+risk = 15;
+stability -= 10;
+log("🧠 지능 향상 선택");
+}
+
+else if(type==="strength"){
+strength += 15;
+risk = 15;
+stability -= 10;
+log("💪 신체 강화 선택");
+}
+
+else if(type==="immunity"){
+immunity += 15;
+risk = 15;
+stability -= 10;
+log("🦠 면역력 강화 선택");
+}
+
+else if(type==="beauty"){
+beauty += 15;
+risk = 25;
+stability -= 15;
+log("✨ 외모 개선 선택");
+}
+
+else{
+log("😊 유전자 편집을 하지 않았다.");
+risk = 5;
+}
+
+let mutationChance =
+risk + (100 - stability)/2;
+if(generation <= 3){
+mutationChance *= 0.6;
+}
+let roll = Math.random()*100;
+
+if(roll < mutationChance){
+
+let severity = Math.random()*100;
+if(generation <= 3){
+severity = Math.min(severity,89);
+}
+if(severity < 60){
+
+let mutation =
+minorMutations[
+Math.floor(Math.random()*minorMutations.length)
+];
+
+log("🟡 경미한 돌연변이 발생");
+log("결과: " + mutation);
+}
+
+else if(severity < 90){
+
+let mutation =
+moderateMutations[
+Math.floor(Math.random()*moderateMutations.length)
+];
+
+log("🟠 중간 수준 돌연변이 발생");
+    mutationHistory[generation] = true;
+log("결과: " + mutation);
+
+intelligence -= 5;
+strength -= 5;
+immunity -= 5;
+}
+
+else{
+
+mutationHistory[generation] = true;
+
+let mutation =
+fatalMutations[
+Math.floor(Math.random()*fatalMutations.length)
+];
+
+gameOver("치명적 돌연변이 발생: " + mutation);
+return;
+}
+}
+
+let news =
+newsEvents[
+Math.floor(Math.random()*newsEvents.length)
+];
+
+log(news);
+
+let disease = Math.random()*100;
+
+if(disease > immunity){
+
+gameOver("감염병을 이겨내지 못했다.");
+return;
+}
+
+log("✅ 다음 세대로 생존");
+
+generation++;
+
+updateUI();
+
+if(generation > 5){
+victory();
+    }
+}
 
 updateUI();
 log("👨‍🔬 연구소에 오신 것을 환영합니다.");
@@ -591,3 +1123,4 @@ text-align:center;
 </div>
 </body>
 </html>
+
