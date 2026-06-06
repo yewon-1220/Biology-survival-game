@@ -220,7 +220,16 @@ CRISPR 유전자 가위 기술이 상용화되었다.
                 border-radius:10px;">
     </div>
 </div>
+<h3>🧬 실험체 정보</h3>
 
+<div class="card">
+
+이름 : Generation X<br>
+상태 : 정상<br>
+DNA 안정성 :
+<span id="stability">100</span>%
+
+</div>
 <h3>가계도</h3>
 
 <div id="familyTree"
@@ -322,7 +331,8 @@ document.getElementById("log").innerHTML += text + "<br><br>";
 document.getElementById("log").scrollTop =
 document.getElementById("log").scrollHeight;
 }
-
+document.getElementById("subjectStatus")
+.innerHTML = "돌연변이 발생";
 function updateUI(){
 
 document.getElementById("generation").innerText =
