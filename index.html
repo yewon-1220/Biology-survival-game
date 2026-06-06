@@ -103,7 +103,6 @@ button:hover{
 </div>
 
 <h3>가계도</h3>
-<h3>가계도</h3>
 
 <div id="familyTree"
 style="
@@ -167,7 +166,7 @@ let immunity = 50;
 let beauty = 50;
 
 let stability = 100;
-
+let mutationHistory = [];
 const newsEvents = [
 "📰 유전자 편집 아동들의 학업 성취도가 증가했다.",
 "📰 디자이너 베이비 논란이 확산되고 있다.",
@@ -226,17 +225,35 @@ else{
 document.getElementById("dnaBar").style.background="#F44336";
 }
 
+
+
+let stages = [
+"👶",
+"🧑",
+"👨",
+"🧔",
+"👴"
+];
+
 let tree = "";
 
-for(let i=1;i<=generation;i++){
-tree += "👶";
+for(let i=0;i<generation;i++){
 
-if(i<generation){
+tree += stages[Math.min(i,4)];
+
+if(mutationHistory[i+1]){
+tree += "🚨";
+}
+
+if(i < generation-1){
 tree += " ➜ ";
 }
+
 }
 
-document.getElementById("familyTree").innerHTML = tree;
+document.getElementById("familyTree").innerHTML =
+tree;
+
 
 }
 
@@ -251,7 +268,23 @@ document.querySelectorAll("button")
 .forEach(btn => btn.disabled = true);
 
 }
+function showPopup(title,text){
 
+document.getElementById("popupTitle").innerText =
+title;
+
+document.getElementById("popupText").innerText =
+text;
+
+document.getElementById("popup").style.display =
+"block";
+}
+
+function closePopup(){
+
+document.getElementById("popup").style.display =
+"none";
+}
 function victory(){
 
 if(stability >= 70){
@@ -353,6 +386,7 @@ Math.floor(Math.random()*moderateMutations.length)
 ];
 
 log("🟠 중간 수준 돌연변이 발생");
+    mutationHistory[generation] = true;
 log("결과: " + mutation);
 
 intelligence -= 5;
@@ -361,6 +395,8 @@ immunity -= 5;
 }
 
 else{
+
+mutationHistory[generation] = true;
 
 let mutation =
 fatalMutations[
@@ -394,26 +430,7 @@ generation++;
 updateUI();
 
 if(generation > 5){
-
-function showPopup(title,text){
-
-document.getElementById("popupTitle").innerText =
-title;
-
-document.getElementById("popupText").innerText =
-text;
-
-document.getElementById("popup").style.display =
-"block";
-}
-
-function closePopup(){
-
-document.getElementById("popup").style.display =
-"none";
-}
 victory();
-}
 }
 
 updateUI();
