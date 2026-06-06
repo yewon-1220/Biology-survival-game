@@ -93,7 +93,22 @@ button:hover{
 <h3 id="generation">1세대 / 5세대</h3>
 
 <p><b>유전자 안정성:</b> <span id="stability">100</span>%</p>
+<div style="width:100%;background:#ddd;border-radius:10px;">
+    <div id="dnaBar"
+         style="width:100%;
+                height:25px;
+                background:#4CAF50;
+                border-radius:10px;">
+    </div>
+<h3>가계도</h3>
 
+<div id="familyTree"
+style="
+font-size:30px;
+text-align:center;
+margin-bottom:20px;">
+👶
+</div>
 <div class="lab">
 👶<br>
 🧬
@@ -194,9 +209,35 @@ document.getElementById("beauty").innerText = beauty;
 
 document.getElementById("stability").innerText =
 Math.max(stability,0);
+
+document.getElementById("dnaBar").style.width =
+Math.max(stability,0) + "%";
+
+if(stability > 70){
+document.getElementById("dnaBar").style.background="#4CAF50";
+}
+else if(stability > 40){
+document.getElementById("dnaBar").style.background="#FFC107";
+}
+else{
+document.getElementById("dnaBar").style.background="#F44336";
 }
 
-function gameOver(reason){
+let tree = "";
+
+for(let i=1;i<=generation;i++){
+tree += "👶";
+
+if(i<generation){
+tree += " ➜ ";
+}
+}
+
+document.getElementById("familyTree").innerHTML = tree;
+
+}
+
+showPopup("💀 GAME OVER", reason);{
 
 log("💀 GAME OVER");
 log(reason);
@@ -207,14 +248,38 @@ document.querySelectorAll("button")
 
 function victory(){
 
-log("🎉 5세대 생존 성공!");
+if(stability >= 70){
 
-log("유전자 편집은 많은 이점을 제공했지만, 미래 세대에 미치는 영향은 여전히 불확실합니다.");
+showPopup(
+"🌟 좋은 엔딩",
+"5세대 생존에 성공했습니다.\n\n유전자 편집은 성공적이었으며 심각한 부작용은 발견되지 않았습니다."
+);
 
-document.querySelectorAll("button")
-.forEach(btn => btn.disabled = true);
 }
 
+else if(stability >= 40){
+
+showPopup(
+"⚖️ 보통 엔딩",
+"5세대 생존에는 성공했습니다.\n\n일부 유전적 문제가 보고되었지만 가문은 유지되었습니다."
+);
+
+}
+
+else{
+
+showPopup(
+"⚠️ 나쁜 엔딩",
+"5세대 생존은 했지만 수많은 돌연변이가 누적되었습니다.\n\n과도한 유전자 편집의 위험성이 드러났습니다."
+);
+
+}
+
+document
+.querySelectorAll("button")
+.forEach(btn => btn.disabled = true);
+
+}
 function editGene(type){
 
 log("🧬 유전자 편집 진행 중...");
@@ -323,6 +388,24 @@ generation++;
 updateUI();
 
 if(generation > 5){
+
+function showPopup(title,text){
+
+document.getElementById("popupTitle").innerText =
+title;
+
+document.getElementById("popupText").innerText =
+text;
+
+document.getElementById("popup").style.display =
+"block";
+}
+
+function closePopup(){
+
+document.getElementById("popup").style.display =
+"none";
+}
 victory();
 }
 }
@@ -334,6 +417,27 @@ log("당신은 부모로서 태어날 아이의 유전자를 편집할 수 있�
 log("5세대까지 가문을 생존시키세요.");
 
 </script>
+<div id="popup" style="
+display:none;
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+background:white;
+padding:25px;
+border-radius:15px;
+box-shadow:0 0 20px rgba(0,0,0,0.4);
+z-index:999;
+max-width:400px;
+text-align:center;
+">
 
+<h2 id="popupTitle"></h2>
+
+<p id="popupText"></p>
+
+<button onclick="closePopup()">확인</button>
+
+</div>
 </body>
 </html>
